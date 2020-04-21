@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+This file originates from https://heptaveegesimal.com
+You may reupload this file in any noncommercial way as long as this reference and the link on the page is kept and you do not weaken these conditions for anyone downloading the version you have modified.
+
+Chain of edits (You may add yourself below, but not remove anyone above):
+> Original File : http://heptaveegesimal.com
+> First Editor  : weee50
+> Second Editor : ...
+> ...
+-->
+<html>
+<head>
+  <title>Heptaveegesimal</title>
+  <link href="../style_5.css" rel="stylesheet" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+</head>
+<body>
+  <!-- Head Of Page -->
+  <center>
+    <p class="top"><font size="6"><em>Heptaveegesimal</em></font><br>
+      <font size="4" id="ins_1"> Custom Minesveeper | <a href="https://heptaveegesimal.com/2018/advent-calendar/">Reupload of this version</a> </font>
+    </p>
+  </center>
+  <!-- Actual Page Content -->
+  <div class="normalText">
+    <center>
+        <h1>Week 11: Twisted Torus</h1>
+        <table>
+          <tr>
+          <td>
+            <table class="invis">
+            <tr class="invis">
+              <td class="invis"><!-- Top Left -->
+              <td class="invis">
+                <table class="invis" id="Top-Numbers">
+                  <tr class="invis">
+                </table>
+              <td class="invis"><!-- Top Right -->
+            <tr class="invis">
+              <td class="invis">
+                <table class="invis" id="Left-Numbers">
+                </table>
+              <td class="invis">
+                <canvas id="canvas_1" width="0" height="0" style="border:1px solid #000000;">
+              <td class="invis">
+                <table class="invis" id="Right-Numbers">
+                </table>
+            <tr class="invis">
+              <td class="invis"><!-- Bottom Left -->
+              <td class="invis">
+              <table class="invis" id="Bottom-Numbers">
+                  <tr class="invis">
+                </table>
+              <td class="invis"><!-- Bottom Right -->
+          </table>
+          </canvas>
+          <td width="200" valign="top" style="position:relative">
+            <div style="margin:7px">
+              <!--- Top Display --->
+              <div style="width:172px;"><center><button type="button" class="greenbutton" id="mobileLR">Left Click</button></center></div>
+              <div id="count_sec_open">
+                <img src="Flag_0.png"></img><div id="count_tex_open" style="display:inline; margin-left:7px">Hallo</div>
+                <br>
+              </div>
+              <div id="count_sec_1flag">
+                <img src="Flag_1.png"></img><div id="count_tex_1flag" style="display:inline; margin-left:7px"">Hallo</div>
+                <br>
+              </div>
+              <div id="count_sec_2flag">
+                <img src="Flag_2.png"></img><div id="count_tex_2flag" style="display:inline; margin-left:7px"">Hallo</div>
+                <br>
+              </div>
+              <div id="count_sec_3flag">
+                <img src="Flag_3.png"></img><div id="count_tex_3flag" style="display:inline; margin-left:7px">Hallo</div>
+              </div>
+              <div id="count_sec_-1flag">
+                <img src="Flag_-1.png"></img><div id="count_tex_-1flag" style="display:inline; margin-left:7px"">Hallo</div>
+                <br>
+              </div>
+              <div id="TorusNavigator">
+                <br>
+                <table class="invis">
+                  <tr class="invis">
+                    <td class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_u"><img src="Arrow_Up.png"></button>
+                    <td class="invis">
+                  <tr class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_l"><img src="Arrow_Left.png"></button>
+                    <td class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_r"><img src="Arrow_Right.png"></button>
+                  <tr class="invis">
+                    <td class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_d"><img src="Arrow_Down.png"></button>
+                    <td class="invis">
+                </table>
+              </div>
+            </div>
+            <div style="position:absolute; bottom:0px; left:0px"><div style="margin:7px">
+              <!--- Bottom Text --->
+              <div id="deathTimerSec" class="hide">
+                <b>Death in:<font id="deathTimerCol" color="#00ff00"><div id="deathTimer" style="font-family:'Courier New'; font-size:20px; margin-left:16px">0:05.000</div></font></b>
+              </div>
+              <br>
+              <b>Time:<div id="regularTimer" style="font-family:'Courier New'; font-size:20px; margin-left:16px">0:00.000</div></b>
+              <!-- <? if(!$mobile) echo $htmlClose."<br>".$htmlOpen; ?> -->
+              <div style="width:172px;"><center><button type="button" class="redbutton" id="restartButton">Restart</button></center></div>
+            </div></div>
+        </table>
+      <div id="Description" class="out_blue"><p align="left">
+        Today, a new type of geometry has been introduced: the Twisted Torus!<br>
+        Essentially, the vertical edges are connected with a regular connection, but the horizontal edges have a completely new type of connection.<br>
+        In this type of connection, the top and bottom halves of the field switch places. Look at the side numbers if you're confused.<br>
+        Because just having a new type of geometry wouldn't be very interesting, there are a lot of double and triple mines today.
+      </div>
+    </center>
+  </div>
+  <!-- Scripts -->
+  <!-- Global Variables -->
+  <script language="javascript" type="text/javascript" src="Setup_1.js"></script>
+  <script language="javascript" type="text/javascript" src="../mobileMode.js"></script>
+  <!-- Important Scripts -->  
+  <script language="javascript" type="text/javascript" src="LoadImages.js"></script>
+  <script language="javascript" type="text/javascript" src="RunTimeFunctions.js"></script>
+  <script language="javascript" type="text/javascript" src="Zen.js"></script>
+  <!-- Assign on click function to canvas -->
+  <script language="javascript" type="text/javascript" src="Setup_2.js"></script>
+  </body>
+</html>

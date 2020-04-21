@@ -1,0 +1,505 @@
+<!---
+This file originates from http://heptaveegesimal.com
+You may reupload this file in any noncommercial way as long as this reference and the link on the page is kept and you do not weaken these conditions for anyone downloading the version you have modified.
+
+Chain of edits (You may add yourself below, but not remove anyone above):
+> Original File : http://heptaveegesimal.com
+> First Editor  : weee50
+> Second Editor : ...
+> ...
+--->
+<!--- Php Test
+<?php
+$mobile = false;
+if($_GET['mobile'] == "1") $mobile = true;
+?>
+--->
+<html>
+<head>
+  <script>var generations = 0;
+  var firstclicked = 0;
+  var colorCount = 0;
+  var autoGen = 0;
+  var ticks = 0;</script>
+  <title>Heptaveegesimal</title>
+  <link href="style_5.css" rel="stylesheet" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+</head>
+<body>
+  <!--- Head Of Page --->
+  <center>
+    <p class="top"><font size="6"><em>Heptaveegesimal</em></font><br>
+      <font size="4" id="ins_1"> Custom Minesveeper | <a href="http://heptaveegesimal.com/2018/advent-calendar/">Reupload of this version</a> </font>
+    </p>
+  </center>
+  <!--- Actual Page Content --->
+  <div class="normalText">
+    <center>
+        <h1>Week 18 - Conway's Game of Life</h1>
+        <table>
+          <tr>
+          <td>
+            <table class="invis">
+            <tr class="invis">
+              <td class="invis"><!-- Top Left -->
+              <td class="invis">
+                <table class="invis" id="Top-Numbers">
+                  <tr class="invis">
+                </table>
+              <td class="invis"><!-- Top Right -->
+            <tr class="invis">
+              <td class="invis">
+                <table class="invis" id="Left-Numbers">
+                </table>
+              <td class="invis">
+                <canvas id="canvas_1" width="0" height="0" style="border:1px solid #000000;" oncontextmenu="return false">
+              <td class="invis">
+                <table class="invis" id="Right-Numbers">
+                </table>
+            <tr class="invis">
+              <td class="invis"><!-- Bottom Left -->
+              <td class="invis">
+              <table class="invis" id="Bottom-Numbers">
+                  <tr class="invis">
+                </table>
+              <td class="invis"><!-- Bottom Right -->
+          </table>
+          </canvas>
+          <td width="200" valign="top" style="position:relative">
+            <div style="margin:7px">
+              <!--- Top Display --->
+              <div style="width:172px;"><center><button type="button" class="greenbutton" id="mobileLR">Left Click</button></center></div>
+              <div style="width:172px;"><center><button type="button" class="greenbutton" id="genSpeed">No Autogen</button></center></div>
+              <div style="width:172px;"><center><button type="button" class="greenbutton" id="lifeChange">One Color</button></center></div>
+              <div id="count_sec_open">
+                <img src="Flag_0.png"></img><div id="count_tex_open" style="display:inline; margin-left:7px">Hallo</div>
+                <br>
+              </div>
+              <div id="count_sec_1flag">
+                <img src="Flag_1.png"></img><div id="count_tex_1flag" style="display:inline; margin-left:7px"">Hallo</div>
+                <br>
+              </div>
+              <div id="count_sec_2flag">
+                <img src="Flag_2.png"></img><div id="count_tex_2flag" style="display:inline; margin-left:7px"">Hallo</div>
+                <br>
+              </div>
+              <div id="count_sec_3flag">
+                <img src="Flag_3.png"></img><div id="count_tex_3flag" style="display:inline; margin-left:7px">Hallo</div>
+              </div>
+              <div id="count_sec_-1flag">
+                <img src="Flag_-1.png"></img><div id="count_tex_-1flag" style="display:inline; margin-left:7px"">Hallo</div>
+                <br>
+              </div>
+              <div id="TorusNavigator">
+                <br>
+                <table class="invis">
+                  <tr class="invis">
+                    <td class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_u"><img src="Arrow_Up.png"></button>
+                    <td class="invis">
+                  <tr class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_l"><img src="Arrow_Left.png"></button>
+                    <td class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_r"><img src="Arrow_Right.png"></button>
+                  <tr class="invis">
+                    <td class="invis">
+                    <td class="invis"><button type="button" class="greenbutton" id="tn_d"><img src="Arrow_Down.png"></button>
+                    <td class="invis">
+                </table>
+              </div>
+            </div>
+            <div style="position:absolute; bottom:0px; left:0px"><div style="margin:7px">
+              <!--- Bottom Text --->
+              <div id="deathTimerSec" class="hide">
+                <b>Death in:<font id="deathTimerCol" color="#00ff00"><div id="deathTimer" style="font-family:'Courier New'; font-size:20px; margin-left:16px">0:05.000</div></font></b>
+              </div>
+              <br>
+              <b>Generations:<div id="regularTimer" style="font-family:'Courier New'; font-size:20px; margin-left:16px">0</div></b>
+              <!-- <? if(!$mobile) echo $htmlClose."<br>".$htmlOpen; ?> -->
+              <div style="width:172px;"><center><button type="button" class="redbutton" id="restartButton">Restart</button></center></div>
+            </div></div>
+        </table>
+      <div id="Description" class="out_blue"><p align="left">
+        Firstly, this will most likely be the last MineDay. I've just lost motivation to make them for now.<br><br>
+        Also, I know this is just a rehash of the first ever custom level I made, even before MineDay, but I put it here for three reasons:<br>
+        1. To make it accessible without having to download a .zip file<br>
+        2. Because I finally got the four-color mode to work so it's not completely recycled content<br>
+        3. Because it makes sense for the last ever custom Minesweeper I make to be a rehash of the first one I made.<br>
+        Now time for a copy-pasted description from that first custom!<br><br>
+        So anyway, this is Conway's Game of Life, a cellular automaton. In case you're unfamiliar with how it works, here are the rules:<br>
+        The game is made up of a board of cells. Cells can be either dead (which is represented by an open square) or alive (which is represented by a closed square).<br>
+        If a living cell has two or three neighbors, it will survive into the next generation. Otherwise, it will die.<br>
+        If a dead cell has exactly three neighbors, it will become alive. Otherwise, it stays dead.<br><br>
+        To start, simply left click to generate the board, then right click to simulate one generation.<br>
+        If you want to start with an empty board, simply right click without left clicking first.<br>
+        After the first left click, if you left click on a square, you can toggle whether it's dead or alive.<br><br>
+        The button that says "No Autogen" will switch between generations not passing by automatically, slowly, and quickly.<br><br>
+        If you click on the "One Color" button, the game will change so that dead cells can now be either red or blue.<br>
+        When a dead cell becomes alive in this mode, its color will be determined by whatever color the majority of its three neighbors are.<br>
+        Clicking the button again will cause the game to have four colors!<br>
+        Like before, the majority color of neighbours determines what color the cell will be, but when the three parents are of all different colors, the child will be the other color.<br>
+        Clicking the button a third time will revert the game back to being one color.
+        </p>
+      </div>
+    </center>
+  <!--- Scripts --->
+  <!--- Global Variables --->
+  <script>
+    var Shape_Normal = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]];
+    var Shape_Normal_WAXD = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1],[0,-1],[0,1],[-1,0],[1,0]];
+    var Shape_Knight = [[-2,-1],[-2,1],[2,-1],[2,1],[-1,-2],[1,-2],[-1,2],[1,2]];
+    var Shape_Hammer = [[-1,-1],[0,-1],[1,-1],[-1,-2],[0,-2],[1,-2]];
+    //var Shape_SandGlass = [[0,1],[-1,2],[0,2],[1,2],[0,-1],[-1,-2],[0,-2],[1,-2]];
+    //var Shape_Plus = [[-2,0],[-1,0],[1,0],[2,0],[0,-2],[0,-1],[0,1],[0,2]];
+    var Shape_Far = [[-1,-2],[0,-2],[1,-2],[-1,0],[1,0],[-1,2],[0,2],[1,2]];
+    var Sheep = {img:null, src:"Invisible.png", x:0, y:0, ai:{dig:null, flag:null, voidClickL:null, voidClickR:null, init:null}};
+    var Rat = {img:null, src:"Rat.png", x:0, y:0, ai:{dig:null, flag:null, voidClickL:null, voidClickR:null, init:null}};
+    var Cheese = {img:null, src:"Cheese.png", x:0, y:0, ai:{dig:null, flag:null, voidClickL:null, voidClickR:null, init:null}};
+    var isMobile = false;
+    /* <? if($mobile) echo "*"."/ isMobile = true; /*" ?> */
+    var mobileLeftclick = true;
+    // *************************************************************************************** //
+    
+    var Generator = {sx: 50, sy: 50, mineMax: 3, amount:[1250,0], shape:Shape_Normal, wrap:[1,1], entities:[Sheep], selFnct:function(){
+      var generations = 0;
+    }, postGenFnct:function(){
+      for (lifeX = 0; lifeX < 50; lifeX++) {
+        for (lifeY = 0; lifeY < 50; lifeY++) {
+          if (field[lifeX][lifeY].mines == 0) {field[lifeX][lifeY].open = true;}
+          if (colorCount == 1) {field[lifeX][lifeY].flags = field[lifeX][lifeY].mines;}
+        }
+      }
+    }};
+    
+    // *************************************************************************************** //
+    var Shape;
+    var hasBeenGenerated;
+    var GameState;
+    var XWrap;
+    var YWrap;
+    var screenscale = 16;
+    var Textures;
+    var sizeX;
+    var sizeY;
+    var maxFlags;
+    var field;
+    var confused;
+    var timeOffset = 0;
+    var lastCounterTime = 0;
+    var startingTime;
+    var canvas = document.getElementById("canvas_1");
+    var cont = canvas.getContext("2d");
+    var timer = document.getElementById("regularTimer");
+    var lastDigTime;
+    var death_timer = document.getElementById("deathTimer");
+    var death_timer_sec = document.getElementById("deathTimerSec");
+    var death_timer_col = document.getElementById("deathTimerCol");
+    var mobileButton = document.getElementById("mobileLR");
+    var colorButton = document.getElementById("lifeChange")
+    var autoGenButton = document.getElementById("genSpeed")
+    var chord = {time:0, x:0, y:0, lock:false};
+    var sideNumbers = {
+      left  : document.getElementById("Left-Numbers"),
+      right : document.getElementById("Right-Numbers"),
+      top   : document.getElementById("Top-Numbers"),
+      bottom: document.getElementById("Bottom-Numbers"),
+    };
+    var counterDisplay = {
+      Floor:{
+        c:0,
+        t:0,
+        div_sec:document.getElementById('count_sec_open'),
+        div_tex:document.getElementById('count_tex_open')
+      },
+      Mines:[{
+        c:0,
+        t:0,
+        div_sec:document.getElementById('count_sec_1flag'),
+        div_tex:document.getElementById('count_tex_1flag')
+      },{
+        c:0,
+        t:0,
+        div_sec:document.getElementById('count_sec_2flag'),
+        div_tex:document.getElementById('count_tex_2flag')
+      },{
+        c:0,
+        t:0,
+        div_sec:document.getElementById('count_sec_3flag'),
+        div_tex:document.getElementById('count_tex_3flag')
+      }],
+      AntiMines:{
+        c:0,
+        t:0,
+        div_sec:document.getElementById('count_sec_-1flag'),
+        div_tex:document.getElementById('count_tex_-1flag')
+      }
+};
+  </script>
+  <!--- Important Scripts --->  
+  <script language="javascript" type="text/javascript" src="LoadImages.js"></script>
+  <script language="javascript" type="text/javascript" src="RunTimeFunctions.js"></script>
+  <script language="javascript" type="text/javascript" src="Zen.js"></script>
+  <!--- Assign on click function to canvas --->
+  <script>
+    //Entity AI
+    function toTarget(E, x, y){
+      if(E.x < x) E.x++;
+      if(E.x > x) E.x--;
+      if(E.y < y) E.y++;
+      if(E.y > y) E.y--;
+    }
+    function setPos(E, x, y){
+      E.x = x;
+      E.y = y;
+    }
+    function initChordLock(E, x, y){
+      setPos(E, x, y);
+      chord.lock = true;
+    }
+    //Sheep
+    Sheep.ai.init = initChordLock;
+    Sheep.ai.voidClickR = function(){
+      for (lifeX = 0; lifeX < 50; lifeX++) {
+        for (lifeY = 0; lifeY < 50; lifeY++) {
+          field[lifeX][lifeY].open = false;
+          square = field[lifeX][lifeY];
+          if (colorCount < 2)
+          {
+            if (square.neighbours == 3 && square.mines == 0) {
+            if (square.minesAround >= 5) {
+              field[lifeX][lifeY].nextgenmines = 2;
+            } else {
+              field[lifeX][lifeY].nextgenmines = 1;
+            }
+            }
+            else if (square.neighbours <= 1 && square.mines >= 1) {field[lifeX][lifeY].nextgenmines = 0;}
+            else if (square.neighbours >= 4 && square.mines >= 1) {field[lifeX][lifeY].nextgenmines = 0;}
+            else {field[lifeX][lifeY].nextgenmines = field[lifeX][lifeY].mines;}
+          }
+          else
+          {
+            sms = square.mineSet;
+            if (square.neighbours == 3 && square.mines == 0)
+            {
+              if (sms[0] == 1 && sms[1] == 1 || sms[1] == 1 && sms[2] == 1)
+              {
+                field[lifeX][lifeY].nextgenmines = 1;
+              }
+              else if (sms[0] == 2 && sms[1] == 2 || sms[1] == 2 && sms[2] == 2)
+              {
+                field[lifeX][lifeY].nextgenmines = 2;
+              }
+              else if (sms[0] == 3 && sms[1] == 3 || sms[1] == 3 && sms[2] == 3)
+              {
+                field[lifeX][lifeY].nextgenmines = 3;
+              }
+              else if (sms[0] == -1 && sms[1] == -1 || sms[1] == -1 && sms[2] == -1)
+              {
+                field[lifeX][lifeY].nextgenmines = -1;
+              }
+              else if (!sms.includes(1))
+              {
+                field[lifeX][lifeY].nextgenmines = 1;
+              }
+              else if (!sms.includes(2))
+              {
+                field[lifeX][lifeY].nextgenmines = 2;
+              }
+              else if (!sms.includes(3))
+              {
+                field[lifeX][lifeY].nextgenmines = 3;
+              }
+              else
+              {
+                field[lifeX][lifeY].nextgenmines = -1;
+              }
+            }
+            else if ((square.neighbours <= 1 || square.neighbours >= 4) && square.mines != 0)
+            {
+              field[lifeX][lifeY].nextgenmines = 0;
+            }
+            else
+            {
+              field[lifeX][lifeY].nextgenmines = field[lifeX][lifeY].mines;
+            }
+          }
+        }
+      }
+      for (lifeX = 0; lifeX < 50; lifeX++) {
+        for (lifeY = 0; lifeY < 50; lifeY++) {
+          field[lifeX][lifeY].mines = field[lifeX][lifeY].nextgenmines;
+          if (field[lifeX][lifeY].mines == 0)
+          {
+            field[lifeX][lifeY].open = true;
+          }
+          if (colorCount >= 1)
+          {
+            field[lifeX][lifeY].flags = field[lifeX][lifeY].mines;
+          }
+        }
+      }
+      generations++;
+      calculateneighbours();
+    };
+
+    Sheep.ai.flag = Sheep.ai.voidClickR;
+
+    //Cheese
+    Cheese.ai.init = setPos;
+    Cheese.ai.voidClickR = setPos;
+    //Rat
+    Rat.ai.init = setPos;
+    Rat.ai.dig = function(E, x, y){
+      toTarget(E, Cheese.x, Cheese.y);
+      if(!field[E.x][E.y].open){
+        if(field[E.x][E.y].mines != 0){
+          field[E.x][E.y].flags = field[E.x][E.y].mines;
+        }else{
+          field[E.x][E.y].open = true;
+          if(field[E.x][E.y].neighbours == 0){
+            digAround(E.x, E.y);
+          }
+        }
+      }
+    }
+    //Events
+    canvas.addEventListener('mouseup', function(event) {
+      var i = event.pageX - canvas.getBoundingClientRect().left - 1 - window.pageXOffset;
+      var j = event.pageY - canvas.getBoundingClientRect().top - 1 - window.pageYOffset;
+      i = Math.floor(i / screenscale);
+      j = Math.floor(j / screenscale);
+      if((i >= 0)&&(j >= 0)&&(i < sizeX)&&(j < sizeY)){
+        if(event.button == 0){
+          if(document.selection && document.selection.empty) {
+            document.selection.empty();
+          } else if(window.getSelection) {
+            let sel = window.getSelection();
+            sel.removeAllRanges();
+          }
+        }
+        if((isMobile ? (!mobileLeftclick) : (event.button == 2)) ^ confused){
+          rightClick(i, j);
+        }else{
+          leftClick(i, j);
+        }
+      }
+    }, false);
+    document.getElementById("restartButton").onclick = function(){
+      startNewGame();
+    };
+    if(isMobile){
+      mobileButton.onclick = function(){
+        if(mobileLeftclick){
+          mobileLeftclick = false;
+          mobileButton.innerText = "Right Click";
+        }else{
+          mobileLeftclick = true;
+          mobileButton.innerText = "Left Click";
+        }
+      };
+    } else {
+      mobileButton.className = "hide";
+    }
+
+    colorButton.onclick = function(){
+        if(colorCount == 0){
+          colorCount = 1;
+          colorButton.innerText = "Two Colors";
+        }else if(colorCount == 1){
+          colorCount = 2;
+          colorButton.innerText = "Four Colors";
+        }else{
+          colorCount = 0;
+          colorButton.innerText = "One Color";
+        }
+        startNewGame();
+      };
+
+    autoGenButton.onclick = function(){
+        if(autoGen == 0){
+          autoGen = 1;
+          autoGenButton.innerText = "Slow Autogen";
+        } else if (autoGen == 1) {
+          autoGen = 2;
+          autoGenButton.innerText = "Fast Autogen";
+        } else {
+          autoGen = 0;
+          autoGenButton.innerText = "No Autogen";
+        }
+      };
+
+    //Torus Navigator
+    function moveField(dir, tan, sizeDir, sizeTan){
+      let i;
+      let j;
+      let h;
+      let f = function(A, lA, B, lB){
+        return intoBounds([A[0] * lA + B[0] * lB, A[1] * lA + B[1] * lB]);
+      }
+      for(i = 0; i < sizeTan; i++){
+        let p1 = f(dir, 0, tan, i);
+        let p2 = p1;
+        let h = field[p1[0]][p1[1]];
+        for(j = 1; j < sizeDir; j++){
+          p1 = f(dir, j-1, tan, i);
+          p2 = f(dir, j, tan, i);
+          field[p1[0]][p1[1]] = field[p2[0]][p2[1]];
+        }
+        field[p2[0]][p2[1]] = h;
+      }
+      drawStuff();
+    }
+    document.getElementById("tn_d").onclick = function(){moveField([0,-1],[1,0],Generator.sy,Generator.sx);};
+    document.getElementById("tn_r").onclick = function(){moveField([-1,0],[0,1],Generator.sx,Generator.sy);};
+    document.getElementById("tn_l").onclick = function(){moveField([1,0],[0,1],Generator.sx,Generator.sy);};
+    document.getElementById("tn_u").onclick = function(){moveField([0,1],[1,0],Generator.sy,Generator.sx);};
+    
+    //Recolors
+    var RecolorMap = [[0, 47, 48, 49, 50],[51, 1, 52, 53, 54],[55, 56, 2, 57, 58],[59, 60, 61, 3, 62],[63, 64, 65, 66, 4]];
+    for(let i = 0; i < 20; i++){
+      Textures.Ground[47 + i] = new Image();
+    }
+    Textures.Ground[47].src = "Color_0_to_1.png";
+    Textures.Ground[48].src = "Color_0_to_2.png";
+    Textures.Ground[49].src = "Color_0_to_3.png";
+    Textures.Ground[50].src = "Color_0_to_4.png";
+    
+    Textures.Ground[51].src = "Color_1_to_0.png";
+    Textures.Ground[52].src = "Color_1_to_2.png";
+    Textures.Ground[53].src = "Color_1_to_3.png";
+    Textures.Ground[54].src = "Color_1_to_4.png";
+    
+    Textures.Ground[55].src = "Color_2_to_0.png";
+    Textures.Ground[56].src = "Color_2_to_1.png";
+    Textures.Ground[57].src = "Color_2_to_3.png";
+    Textures.Ground[58].src = "Color_2_to_4.png";
+    
+    Textures.Ground[59].src = "Color_3_to_0.png";
+    Textures.Ground[60].src = "Color_3_to_1.png";
+    Textures.Ground[61].src = "Color_3_to_2.png";
+    Textures.Ground[62].src = "Color_3_to_4.png";
+    
+    Textures.Ground[63].src = "Color_4_to_0.png";
+    Textures.Ground[64].src = "Color_4_to_1.png";
+    Textures.Ground[65].src = "Color_4_to_2.png";
+    Textures.Ground[66].src = "Color_4_to_3.png";
+    
+    let hasNoEntities = true;
+    if(Array.isArray(Generator.entities)){
+      hasNoEntities = (Generator.entities.length == 0);
+    }
+    if((Generator.wrap[0] == 1) && (Generator.wrap[1] == 1) && hasNoEntities){
+      TorusNavigator.className = "";
+    }else{
+      TorusNavigator.className = "hide";
+    }
+    startNewGame();
+    
+    setTimeout(function() {drawStuff();}, 50);
+    setTimeout(function() {drawStuff();}, 200);
+    setTimeout(function() {drawStuff();}, 500);
+    setTimeout(function() {drawStuff();}, 1000);
+  </script>
+  </body>
+</html>
