@@ -18,7 +18,7 @@ var Shape_Normal = [[-1,-1],[0,-1],[1,-1],[-1,0],[1,0],[-1,1],[0,1],[1,1]];
       let i = 0;
       let Reach = getReachable(posX, posY);
       Reach[Reach.length] = [posX, posY];
-      while(i < 75){
+      while(i < 70){
         let x = Math.floor(Math.random() * Generator.sx);
         let y = Math.floor(Math.random() * Generator.sy);
         if (field[x][y].mines == 0 && neighbours(x,y) == 0) {
